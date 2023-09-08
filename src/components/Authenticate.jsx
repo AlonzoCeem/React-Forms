@@ -3,6 +3,7 @@ import { useState } from "react"
 function Authenitcate(props){
     const [error, setError] = useState(null)
     const [successMessage, setSuccessMessage] = useState(null)
+    const [userName, setUsername] = useState(null)
     const { token } = props
     
     async function handleClick(){
@@ -16,7 +17,8 @@ function Authenitcate(props){
             }
             })
             const response = await data.json()
-            setSuccessMessage(response.message)      
+            setSuccessMessage(response.message)
+            setUsername(response.data.username)      
         } catch {
             setError(error.message)
         } 
@@ -26,9 +28,10 @@ function Authenitcate(props){
         <>
           <div>
             <h2>Authenticate</h2>
-            {successMessage != null ? <p>{ successMessage }</p> : null}
             {error != null ? <p>{ error }</p> : null}
             <button onClick={handleClick}>Authenticate Token</button>
+            {successMessage != null ? <p>{ successMessage }</p> : null}
+            { userName != null ? <h2>Welcome, { userName }</h2> : null}
           </div>
         </>
     )
